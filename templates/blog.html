@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="container">
+    <div class="row">
+    <!-- Latest Posts -->
+        <section class="featured-posts no-padding-top">
+            <main class="posts-listing col-lg-12"> 
+                <div class="container">
+                    <div class="row">
+                    <!-- post -->
+                    {% for post in posts %}
+                    <div class="post col-lg-4">
+                        <div class="post-thumbnail"><a href="post.html">
+                            <img style="width: auto; height: auto;" src="{{ post.thumbnail.url }}" alt="..." class="img-fluid"></a></div>
+                        <div class="post-details">
+                          <div class="post-meta d-flex justify-content-between">
+                            <div class="date meta-last">{{ post.pub_date }}</div>
+                            <div class="category"><a href="#">Business</a></div>
+                          </div><a href="post.html">
+                            <h3 class="h4">{{ post.title }}</h3></a>
+                          <p class="text-muted">{{post.content|truncatechars:20}}</p>
+                          <footer class="post-footer d-flex align-items-center"><a href="#" class="author d-flex align-items-center flex-wrap">
+                              <div class="avatar"><img src="{% static 'img/avatar-3.jpg' %}" alt="..." class="img-fluid"></div>
+                              <div class="title"><span>John Doe</span></div></a>
+                            <div class="date"><i class="icon-clock"></i> {{ post.pub_date|timesince }} ago</div>
+                            <div class="comments meta-last"><i class="icon-comment"></i>12</div>
+                          </footer>
+                        </div>
+                      </div>
+                      {% endfor %}
+                    </div>
+                </div>
+            </main>
+        </section>   
+    </div>
+</div>       
+{% endblock content %}

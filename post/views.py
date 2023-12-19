@@ -6,3 +6,7 @@ from .models import Post
 def home(request):
     latest = Post.objects.order_by('-pub_date')[0:3]
     return render(request, 'home.html', {'latest': latest})
+
+def blog(request):
+    posts = Post.objects.all()
+    return render(request,'blog.html', {'posts': posts})

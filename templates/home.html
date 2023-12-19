@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 {% load static %}
+{% block title %} Home {% endblock %}
 
 {% block content %}
 
@@ -31,14 +32,14 @@
           {% for post in latest %}
           <div class="post col-md-4 gx-5" style="width: 18rem;">
             <div class="post-thumbnail">
-              <a href="#"><img src="{{ post.thumbnail.url }}" alt="..." class="img-fluid"></a>
+              <a href="{% url 'detail_post' post.id %}"><img src="{{ post.thumbnail.url }}" alt="..." class="img-fluid"></a>
             </div>
             <div class="post-details">
               <div class="post-meta d-flex justify-content-between">
                 <div class="date">{{ post.pub_date }}</div>
-              </div><a href="#">
+              </div><a href="{% url 'detail_post' post.id %}">
                 <h3 class="h4">{{ post.title }}</h3></a>
-              <p class="text-muted">{{post.content|truncatechars:20}}</p>
+              <p class="text-muted">{{post.content|truncatechars:10}}</p>
             </div>
           </div>
           {% endfor %}

@@ -27,3 +27,19 @@ def create_post(request):
         Post.objects.create(title=title, content=content, thumbnail=thumbnail)
         return redirect('dashboard')
     return render(request, "create_post.html")
+
+def update_post(request, post_id):
+    post = get_object_or_404(Post, id = post_id)
+    if request.method == 'POST':
+        title = request.POST['title']
+        content = request.POST['content']
+        thumbnail = request.FILES.get('thumbnail', post.thumbnail)
+
+        Post.objects.filter(id = post_id).update(title=title, content=content, thumbnail=thumbnail)
+        return redirect('dashboard')
+    return render(request, "update_post.html", {'post':post})
+
+def delete_post(request, post_id):
+    post = get_object_or_404(Post, id = post_id)
+    post.delete()
+    return redirect('dashboard')

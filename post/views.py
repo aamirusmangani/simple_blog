@@ -14,3 +14,7 @@ def blog(request):
 def detail_post(request, post_id):
     post = get_object_or_404(Post, id=post_id)
     return render(request, 'post_detail.html', {'post': post})
+
+def dashboard(request):
+    posts = Post.objects.all()
+    return render(request, "dashboard.html", {'posts':posts})

@@ -18,3 +18,12 @@ def detail_post(request, post_id):
 def dashboard(request):
     posts = Post.objects.all()
     return render(request, "dashboard.html", {'posts':posts})
+
+def create_post(request):
+    if request.method == 'POST':
+        title = request.POST['title']
+        content = request.POST['content']
+        thumbnail = request.FILES['thumbnail']
+        Post.objects.create(title=title, content=content, thumbnail=thumbnail)
+        return redirect('dashboard')
+    return render(request, "create_post.html")

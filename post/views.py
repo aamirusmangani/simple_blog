@@ -1,6 +1,6 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from .models import Post
-
+from django.contrib.auth.decorators import login_required
 # Create your views here.
 
 def home(request):
@@ -15,10 +15,13 @@ def detail_post(request, post_id):
     post = get_object_or_404(Post, id=post_id)
     return render(request, 'post_detail.html', {'post': post})
 
+
+@login_required
 def dashboard(request):
     posts = Post.objects.all()
     return render(request, "dashboard.html", {'posts':posts})
 
+@login_required
 def create_post(request):
     if request.method == 'POST':
         title = request.POST['title']
@@ -28,6 +31,8 @@ def create_post(request):
         return redirect('dashboard')
     return render(request, "create_post.html")
 
+
+@login_required
 def update_post(request, post_id):
     post = get_object_or_404(Post, id = post_id)
     if request.method == 'POST':
@@ -39,6 +44,8 @@ def update_post(request, post_id):
         return redirect('dashboard')
     return render(request, "update_post.html", {'post':post})
 
+
+@login_required
 def delete_post(request, post_id):
     post = get_object_or_404(Post, id = post_id)
     post.delete()
